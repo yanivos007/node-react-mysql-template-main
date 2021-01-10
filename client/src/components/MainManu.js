@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Switch, } from "react-router-dom";
 import Admin from './admin/Admin';
 import HomePage from './HomePage';
 import NavBar from './NavBar';
+import Login from './user/Login';
+import Register from './user/Register';
 
 
 class MainManu extends Component {
@@ -15,6 +17,8 @@ class MainManu extends Component {
                         <Switch>
                             <Route path='/' exact component={HomePage} />
                             <Route path='/admin'  component={Admin} />
+                            <Route path='/register'  component={Register} />
+                            <Route path='/login'  component={Login} />
                             {/* <Route  path='/login' exact component={} />
                <Route path='/register' component={} />  */}
                         </Switch>

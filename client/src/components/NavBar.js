@@ -15,6 +15,9 @@ class NavBar extends Component {
                                 <Link to="/admin">
                                     <li> admin's page</li>
                                 </Link>
+                                <Link to="/login">
+                                    <li> login</li>
+                                </Link>
                                 {/* <Link to="/register">
                                     <li> Register</li>
                                 </Link> */}

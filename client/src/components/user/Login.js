@@ -13,13 +13,36 @@ import React, { Component } from 'react'
             event.preventDefault()
            const userName = this.userName.current.value;
            const password = this.password.current.value;
+           const user = {userName, password}
            this.setState=({
-               currentUser: [...this.state.currentUser, userName, password]
+               currentUser: [...this.state.currentUser, user]
            })
-     }
+            const onLogin =  {
+                    method: "POST" , 
+                    headers: {
+                        "content-Type": "application/json"
+                    },
+                    body: JSON.stringify(user)
+                };
+                if(onLogin){
+                    fetch('/api/users/login', onLogin)
+                    .then(res => res.json())
+                    .then(res => this.state({res}))
+                    console.log(user)        
+                }else{
+                    alert("error")
+                }
+             }           
+            
+     
+     componentDidMount() {
+		this.userName.current.focus();
+	}
     render() {
         return (
             <div className="loginPage">
+                <h1>login here </h1>
+
                 <form onSubmit={(event)=>this.onSubmitHandler(event)}>
                 <div classsName="loginContainer" >
                     <label name="userName"/> 

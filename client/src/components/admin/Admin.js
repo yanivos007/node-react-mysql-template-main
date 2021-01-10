@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Vacation from './Vacation';
+// import Vacation from './Vacation';
 
 
 class Admin extends Component {
@@ -10,18 +10,21 @@ class Admin extends Component {
         this.cost = React.createRef();
         this.dates = React.createRef();
         this.state = {
-            vacation: []
+            vacation: [
+               
+            ]
         }
     }
     
-    onSubmitHandler(event) {
+  async  onSubmitHandler(event) {
         event.preventDefault();
         const description = this.description.current.value;
         const destination = this.destination.current.value;
         const cost = this.cost.current.value;
         const dates = this.dates.current.value;
+        const newVacation = {description,destination, cost, dates }
         this.setState({
-            newVacation:[...this.state.vacation , description , destination, cost, dates]
+            newVacation:[...this.state.vacation , newVacation  ]
         });
 
         const insertVacation ={
@@ -29,7 +32,7 @@ class Admin extends Component {
             headers: {
                 "content-Type": "application/json"
             },
-            body: JSON.stringify(this.state.newVacation)
+            body: JSON.stringify(newVacation)
         };
         if(insertVacation){
             fetch('/api/vacations/post', insertVacation)
@@ -44,7 +47,7 @@ class Admin extends Component {
 
 
     render() {
-        const allVacations = this.state.vacation;
+        // const allVacations = this.state.vacation;
         // console.log(allVacations)
         return (
             <div>
@@ -69,10 +72,10 @@ class Admin extends Component {
                 </form>
                 <div>
                     
-                  {allVacations.map(v => 
+                  {/* {allVacations.map(v => 
                   <div>
                        <Vacation key={v.description} item={v} />
-                 </div>)}
+                 </div>)} */}
                 </div>
             </div>
         )
