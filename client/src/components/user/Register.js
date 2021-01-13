@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
+import {connect} from "react-redux";
+import {register} from '../../bussiness/usersActions'
+
 // import axios from 'axios'
 
  class Register extends Component {
-     constructor(){
-         super()
+     constructor(props){
+         super(props)
          this.firstName = React.createRef();
          this.lastName = React.createRef();
          this.userName = React.createRef();
          this.password = React.createRef();
-         this.state={
-            users:[]
-         }
      }
 
     async componentDidMount(){
-         await fetch('http://localhost:8080/api/users')
-         .then(res => res.json())
-         .then(user => this.setState({user}))
+this.userName.current.focus();
      }
 
      onSubmitHandler(event){
@@ -25,25 +23,24 @@ import React, { Component } from 'react'
         const lastName = this.lastName.current.value;
         const userName = this.userName.current.value;
         const password = this.password.current.value;
-        const newUser ={firstName,lastName,userName, password  }
-        this.setState=({ newUser: [...this.state.users, newUser ]})
-        
-        const insertUser = {
-            method: "POST" , 
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(newUser)
-        };
-        if(insertUser){
-            fetch('/api/users/post', insertUser)
-            .then(res => res.json())
-            .then(res => this.state({res}))
-            console.log(insertUser)        
-        }else{
-            alert("error")
-        }
-     }
+        const newUser ={firstName,lastName,userName, password};
+        this.props.onRegister(newUser) ;
+     }       
+    //     const insertUser = {
+    //         method: "POST" , 
+    //         headers: {
+    //             "content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(newUser)
+    //     };
+    //     if(insertUser){
+    //         fetch('/api/users/register', insertUser)
+    //         .then(res => res.json())
+    //         .then(res => this.state({res}))
+    //     }else{
+    //         alert("error")
+    //     }
+    //  }
 
 
     render() {
@@ -73,5 +70,10 @@ import React, { Component } from 'react'
         )
     }
 }
+const mapDispatchToProps = dispatch => {
+return{
+    onRegister: (firstName , lastName , userName, password) => dispatch(register(firstName , lastName ,userName, password))
+}
+}
 
-export default Register
+export default connect(null, mapDispatchToProps)(Register);

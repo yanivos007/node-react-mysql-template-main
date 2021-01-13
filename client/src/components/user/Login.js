@@ -1,37 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {connect} from "react-redux";
+import {login} from "../../bussiness/usersActions";
+
 
  class Login extends Component {
      constructor(){
          super()
          this.userName = React.createRef();
          this.password = React.createRef();
-         this.state={
-            currentUser: []
-         }
+        
         }
         onSubmitHandler(event){
             event.preventDefault()
            const userName = this.userName.current.value;
            const password = this.password.current.value;
            const user = {userName, password}
-           this.setState=({
-               currentUser: [...this.state.currentUser, user]
-           })
-            const onLogin =  {
-                    method: "POST" , 
-                    headers: {
-                        "content-Type": "application/json"
-                    },
-                    body: JSON.stringify(user)
-                };
-                if(onLogin){
-                    fetch('/api/users/login', onLogin)
-                    .then(res => res.json())
-                    .then(res => this.state({res}))
-                    console.log(user)        
-                }else{
-                    alert("error")
-                }
+           this.props.onLogin(user)
+           
+            // const onLogin =  {
+            //         method: "POST" , 
+            //         headers: {
+            //             "content-Type": "application/json"
+            //         },
+            //         body: JSON.stringify(user)
+            //     };
+            //     if(onLogin){
+            //         fetch('/api/users/login', onLogin)
+            //         .then(res => res.json())
+            //         .then(res => this.state({res}))
+            //         console.log(user)        
+            //     }else{
+            //         alert("error")
+            //     }
              }           
             
      
@@ -60,4 +60,15 @@ import React, { Component } from 'react'
     }
 }
 
-export default Login
+const mapStateToProps = state => {
+    return{
+        user: state.users.currentUser
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onLogin: (userName, password) => dispatch(login(userName, password)),
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

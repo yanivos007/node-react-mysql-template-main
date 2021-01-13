@@ -1,11 +1,15 @@
 import MainManu from './components/MainManu';
 import './App.css';
+import React from 'react'
+
+import { Provider } from 'react-redux';
+import appStore from './bussiness/appStore'
 
 function App() {
   return (
-    <div className="App">
+    <Provider store={appStore}>
       <MainManu />
-      </div>
+    </Provider>
   );
 }
 
