@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const dbService = require('../utils/dbService');
-
+// const dbService = require('../utils/dbService');
+const REPOSITORY = require('../utils/vacationsRepository');
 
 
 router.get('/', async (req, res) => {
     try {
-        const vacations = await dbService.executeQuery('SELECT * FROM vacations;');
+        const vacations = await REPOSITORY.getAll();
         res.json(vacations)
     } catch (err) {
         console.log(err)
@@ -14,14 +14,16 @@ router.get('/', async (req, res) => {
 
 router.post('/post', async (req, res) => {
     try {
-        const { destination, description, cost, dates, followers } = req.body
-        const newVacation = await dbService.executeQuery('INSERT INTO  vacations (destination, description, cost, dates,followers) VALUES(?,?,?,?,?)',
-            [destination, description, cost, dates, followers])
-        // return newVacation;
-        console.log(newVacation);
+   const newVacationData = req.body
+        const newVacation = await REPOSITORY.addVacation(newVacationData)
+        res.send(newVacation) ;
     } catch (err) {
         console.log(err)
     }
 })
+// router.delete('/delete', async (req,res)=>{
+//             const { destination, description, cost, dates, followers } = req.body
+
+// })
 
 module.exports = router;

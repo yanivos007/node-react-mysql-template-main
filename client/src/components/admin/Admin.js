@@ -1,54 +1,27 @@
 import React, { Component } from 'react'
-// import Vacation from './Vacation';
+import { connect } from "react-redux";
+import Vacation from './Vacation'
+import { addVacation, fetchAll } from '../../bussiness/vacationsActions'
+
 
 
 class Admin extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.description = React.createRef();
         this.destination = React.createRef();
-        this.cost = React.createRef();
+        this.price = React.createRef();
         this.dates = React.createRef();
-        this.state = {
-            vacation: [
-               
-            ]
-        }
-    }
-    
-  async  onSubmitHandler(event) {
-        event.preventDefault();
-        const description = this.description.current.value;
-        const destination = this.destination.current.value;
-        const cost = this.cost.current.value;
-        const dates = this.dates.current.value;
-        const newVacation = {description,destination, cost, dates }
-        this.setState({
-            newVacation:[...this.state.vacation , newVacation  ]
-        });
 
-        const insertVacation ={
-            method: "POST" , 
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(newVacation)
-        };
-        if(insertVacation){
-            fetch('/api/vacations/post', insertVacation)
-            .then(res => res.json())
-            .then(res => this.state({res}))
-            console.log("vacation added seccesfully")
-            
-        }else{
-            alert("error")
-        }
+    }
+
+    componentDidMount(){
+        this.props.onFetchVacations();
     }
 
 
     render() {
-        // const allVacations = this.state.vacation;
-        // console.log(allVacations)
+        const allVacations = this.props.vacations;
         return (
             <div>
                 <h1>Admin's Page</h1>
@@ -60,26 +33,51 @@ class Admin extends Component {
                     <label>destination</label>
                     <input type="text" ref={this.destination} placeholder="destination" />
                     <br />
-                    <label>cost</label>
-                    <input type="number" ref={this.cost} placeholder="cost" />
+                    <label>price</label>
+                    <input type="number" ref={this.price} placeholder="price" />
                     <br />
                     <label>dates</label>
                     <input type="date" ref={this.dates} placeholder="dates" />
                     <br />
                     <label>picture</label>
                     <input type="file" id="img" />
-                    <input  type="submit"/>
+                    <input type="submit" />
                 </form>
                 <div>
-                    
-                  {/* {allVacations.map(v => 
-                  <div>
-                       <Vacation key={v.description} item={v} />
-                 </div>)} */}
+
+                    {allVacations.map(v =>
+                        <div>
+                            <Vacation key={v.id} item={v} />
+                        </div>)}
                 </div>
             </div>
         )
     }
+    async onSubmitHandler(event) {
+        event.preventDefault();
+        const description = this.description.current.value;
+        const destination = this.destination.current.value;
+        const price = this.price.current.value;
+        const dates = this.dates.current.value;
+        const followers = 10;
+        const newVacation = { description, destination, price, dates, followers }
+        this.props.onAddVacation(newVacation);
+
+    }
 }
 
-export default Admin
+const mapsStateToProps = state => {
+    return {
+        vacations : state.vacationsList
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchVacations: () => dispatch(fetchAll()) ,
+        onAddVacation: (description,destination, price, dates, followers) =>
+         dispatch(addVacation(description,destination, price, dates, followers))
+
+    }
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(Admin);

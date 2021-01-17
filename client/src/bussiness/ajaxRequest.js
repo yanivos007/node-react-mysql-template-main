@@ -16,7 +16,7 @@ export const post = async (url, data) => {
 	}
 }
 
-export const get = async url => {
+export const get = async (url) => {
 	try {
 		const response = await fetch( url);
 		return parseResponse(response);

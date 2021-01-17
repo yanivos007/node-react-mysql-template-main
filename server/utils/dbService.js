@@ -4,9 +4,10 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'project',
+  database: 'project1',
   connectionLimit: 100,
 });
+
 
 module.exports.executeQuery = (queryString, params) => {
   return new Promise((resolve, reject) => {

@@ -1,18 +1,20 @@
-export const VACATION_ADDED = "vacation/post";
-export const VACATION_DELETED = "vacation/delete";
+import * as ACTIONS from './vacationsActions';
 
-const initialState ={
-    vacationsList=[]
-}
- const usersReducer = (state = initialState, action ) => {
+
+const initialState = {
+    vacationsList: [],
+};
+ const vacationsReducer = (state = initialState, action ) => {
     switch (action.type) {
-        case ACTION.VACATION_ADDED:
-            return{...state, vacationsList: action.vacation}
-        case ACTION.VACATION_DELETED:
-            return {...state  }
+        case ACTIONS.VACATION_ADDED:
+            return{...state, vacationsList: action.vacations}
+        case ACTIONS.FETCH_VACATIONS:
+            return{...state}
+        // case ACTIONS.VACATION_DELETED:
+        //     return {...state  }
             default:
                 return state;
     }
 }
-export default usersReducer;
+export default vacationsReducer;
 

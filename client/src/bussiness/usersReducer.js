@@ -1,16 +1,16 @@
 import * as ACTIONS from './usersActions';
 
-const initialState ={
+const initialState = {
     currentUser: null ,
-    admin: null
+    loggedIn: false
 }
 const usersReducer = (state = initialState, action ) => {
     switch (action.type) {
         case ACTIONS.ADD_USER:
-            return{...state, currentUser: action.user}
+            return{...state, currentUser: action.user , loggedIn: true};
         case ACTIONS.REGISTER:
-            return initialState
-        case ACTIONS.ADD_USER:
+            return{...state, currentUser: action.user , loggedIn: true};
+        case ACTIONS.ADMIN_CONNECTED:
             return{...state, admin: action.admin}
             default:
                 return state;

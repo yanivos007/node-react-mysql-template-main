@@ -72,7 +72,7 @@ this.userName.current.focus();
 }
 const mapDispatchToProps = dispatch => {
 return{
-    onRegister: (firstName , lastName , userName, password) => dispatch(register(firstName , lastName ,userName, password))
+    onRegister: (firstName , lastName , userName, password) => dispatch = (register(firstName , lastName ,userName, password))
 }
 }
 

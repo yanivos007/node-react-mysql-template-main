@@ -6,7 +6,6 @@ import NavBar from './NavBar';
 import Login from './user/Login';
 import Register from './user/Register';
 
-
 class MainManu extends Component {
     render() {
         return (
@@ -19,8 +18,6 @@ class MainManu extends Component {
                             <Route path='/admin'  component={Admin} />
                             <Route path='/register'  component={Register} />
                             <Route path='/login'  component={Login} />
-                            {/* <Route  path='/login' exact component={} />
-               <Route path='/register' component={} />  */}
                         </Switch>
                     </div>
                 </Router>
