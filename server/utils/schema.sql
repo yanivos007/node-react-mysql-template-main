@@ -17,6 +17,6 @@ CREATE TABLE `project1`.`vacations` (
   `description` VARCHAR(140) NOT NULL,
   `destination` VARCHAR(70) NOT NULL,
   `price` INT NOT NULL,
-  `date` DATE NOT NULL,
+  `dates` DATE NOT NULL,
   `followers` INT NOT NULL,
   PRIMARY KEY (`id`));

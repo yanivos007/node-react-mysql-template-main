@@ -15,8 +15,24 @@
 list-style: none;
 
 }
+.newVacationContainer{
+  border: 1px solid black;
+  margin: auto;
+}
 .loginContainer{
-border: 3px solid blanchedalmond;
+border: 3px solid black;
+margin: auto;
+
+}
+.vacationBox{
+  display: grid;
+  border: 1px solid black;
+  grid-column-gap: 50px;
+ 
+  margin: auto;
+
+
+
 }
 /* .mainManu{
 display: flex;

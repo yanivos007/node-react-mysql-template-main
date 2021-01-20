@@ -4,8 +4,8 @@ import NewVacation from './NewVacation'
 import Vacation from './Vacation'
 
 class AdminPage extends Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
             showVacationComponent: false,
             editVacationComponent: false,
@@ -13,8 +13,10 @@ class AdminPage extends Component {
         }
     }
 
+
     onShowNewVacationHandler() {
         this.setState({ showVacationComponent: true })
+        console.log(this.state.showVacationComponent)
     }
     onEditVacationHandler() {
         this.setState({ editVacationComponent: true })
@@ -28,21 +30,24 @@ class AdminPage extends Component {
             <div className="adminNavContainer">
                 <h1> admin's page</h1>
                 <ul className="admiNav">
-                    <li className="adminLink"><button onClick={() => this.onShowNewVacationHandler()}> add new vacation</button></li>
-                    <li className="adminLink"><button onClick={() => this.onEditVacationHandler()}> edit vacations</button></li>
-                    <li className="adminLink"> <button onClick={() => this.editUsersComponent()}> edit users</button></li>
+                    <li className="adminLink"><button type="button" onClick={() => this.onShowNewVacationHandler()}> add new vacation</button></li>
+                    <li className="adminLink"><button type="button" onClick={() => this.onEditVacationHandler()}> edit vacations</button></li>
+                    <li className="adminLink"> <button type="button" onClick={() => this.editUsersComponent()}> edit users</button></li>
                 </ul>
+                <div>
 
-                {this.showVacationComponent === 'true'
-                    &&
-                    <div>
-                        <NewVacation />
-                    </div>
-                }
-                {vacations.map(v =>
-                    <div key={v.id}>
-                        <Vacation v={vacations} />
-                    </div>)}
+                    {this.state.showVacationComponent = true
+                        &&
+                        <div> <NewVacation /> </div>
+                    }
+                </div>
+                <div>
+
+                    {this.props.vacations.map(v =>
+                        <div key={v.id}>
+                            <Vacation v={vacations} />
+                        </div>)}
+                </div>
 
             </div>
         )
@@ -51,7 +56,6 @@ class AdminPage extends Component {
 const mapStateToProps = state => {
     return {
         vacations: state.vacations.vacationsList
-
     }
 }
 

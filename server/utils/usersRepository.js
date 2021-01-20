@@ -1,6 +1,7 @@
 // const router = require('../routers/vactionsRouter');
 const dbService = require('./dbService');
 const bcrypt = require('bcrypt');
+const { response } = require('express');
 
 
 class usersRepository {
@@ -22,14 +23,15 @@ this.nextId = 1;
 async findByUserName(userName){
   userName = userName.trim().toLowerCase();
   const results = await dbService.executeQuery('SELECT * FROM users WHERE userName = ?', [userName]);
-  return results;
+
+  return results[0];
 };
 
    async addNewUser(newUserData) {
     const {firstName, lastName, userName, password} = newUserData
     const user = await this.findByUserName(userName)
-    if(!user){
-      throw ({error:["userName is already in used!"]});
+    if(user){
+      response.status(401).send('user already in used')
     }else{
       const hash = await bcrypt.hash(password, 10);
       const createdAt = Date.now();
@@ -39,6 +41,20 @@ async findByUserName(userName){
     }
    }
 
+   async login(userName,password){
+    const user = await dbService.executeQuery('SELECT * FROM USERS WHERE userName =? ',[userName] )
+  if(!user.length){
+    return 'user not found';
+  }else{
+    const response = await bcrypt.compare(password, user[0].password)
+  if (response == true){
+    return user[0];
+  }else{
+    return 'password id not matched'
+  }
+  }
+
+  }
   // async save(data) {
   //   const result = await dbService.executeQuery('INSERT INTO users SET ?', data);
   //   return { id: result.insertId, ...data };

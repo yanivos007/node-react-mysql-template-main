@@ -19,7 +19,21 @@ router.get('/:userName', async (req, res) => {
     res.json(userName);
     return userName;
 })
-
+router.post('/login', async (req,res)=>{
+    try {
+        const {userName,password} = req.body
+        const user = await usersRepository.login(userName,password)
+        
+        if(typeof user === "string"){
+            res.status(500).send({error:[user]})
+        }else{
+            res.status(200).send(user);
+            
+        }
+    } catch (err) {
+        console.log(err)
+    }
+})
 // const removeProperties = (obj, properties) => {
 //     const result = { ...obj };
 //     for (const property of properties) {

@@ -20,19 +20,20 @@ async getAll() {
 
   // }
   async addVacation(newVacationData) {
+    console.log(newVacationData);
     const {description, destination, price, dates, followers} = newVacationData
     if(!newVacationData){
       throw ({error:["vacation is already exist!"]});
     }else{
       const createdAt = Date.now();
       const newVacation = { description, destination, price, dates, followers};
-      const results =  await dbService.executeQuery('INSERT INTO  users set ?' , 
+      const results =  await dbService.executeQuery('INSERT INTO  vacations set ?' , 
       newVacation) ;
       return {id: results.insertId, ...newVacation, createdAt};
     }
   }
-  async save(data) {
-    const result = await dbService.executeQuery('INSERT INTO vacations SET ?', data);
+  async update(data) {
+    const result = await dbService.executeQuery('UPDATE INTO vacations SET ?', data);
     return { id: result.insertId, ...data };
   }
   async deleteById(id) {

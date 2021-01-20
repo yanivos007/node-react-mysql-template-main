@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Vacation from './Vacation'
 import { addVacation, fetchAll } from '../../bussiness/vacationsActions'
 
-class Admin extends Component {
+class newVacation extends Component {
     constructor() {
         super()
         this.description = React.createRef();
@@ -13,17 +13,15 @@ class Admin extends Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onFetchVacations();
     }
 
-
     render() {
-        const {vacations} = this.props;
+        const { vacations } = this.props;
         return (
-            <div>
-                <h1>Admin's Page</h1>
-                
+            <div className="newVacationContainer">
+
                 <h3>add new vacation</h3>
                 <form onSubmit={(event) => this.onSubmitHandler(event)}>
                     <label>description</label>
@@ -43,17 +41,18 @@ class Admin extends Component {
                     <input type="submit" />
                 </form>
                 <div>
-
-                {vacations.map(v =>
-                        <div key={v.id}>
-                            <Vacation v={vacations} />
-                        </div>)}
+                    <div>
+                        {this.props.vacations.map(v =>
+                            <div key={v.id}>
+                                <Vacation v={vacations} />
+                            </div>)}
+                    </div>
                 </div>
             </div>
         )
     }
     // <div>
-                    
+
     // {vacations.map(function(item,i){
     //         return <Vacation vacation={item} key={i} />       
     //         })}
@@ -73,17 +72,17 @@ class Admin extends Component {
 
 const mapsStateToProps = state => {
     return {
-        vacations : state.vacations.vacationsList
+        vacations: state.vacations.vacationsList
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchVacations: () => dispatch(fetchAll()) ,
+        onFetchVacations: () => dispatch(fetchAll()),
 
-        onAddVacation: (description,destination, price, dates, followers) =>
-         dispatch(addVacation(description, destination, price, dates, followers))
+        onAddVacation: (description, destination, price, dates, followers) =>
+            dispatch(addVacation(description, destination, price, dates, followers))
 
     }
 }
 
-export default connect(mapsStateToProps, mapDispatchToProps)(Admin);
+export default connect(mapsStateToProps, mapDispatchToProps)(newVacation);
