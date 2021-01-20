@@ -28,6 +28,7 @@ router.post('/post', async (req, res) => {
         console.log(err)
     }
 })
+
 // router.delete('/delete', async (req,res)=>{
 //             const { destination, description, cost, dates, followers } = req.body
 

@@ -17,21 +17,6 @@ import {login} from "../../bussiness/usersActions";
            const user = {userName, password}
            this.props.onLogin(user)
            
-            // const onLogin =  {
-            //         method: "POST" , 
-            //         headers: {
-            //             "content-Type": "application/json"
-            //         },
-            //         body: JSON.stringify(user)
-            //     };
-            //     if(onLogin){
-            //         fetch('/api/users/login', onLogin)
-            //         .then(res => res.json())
-            //         .then(res => this.state({res}))
-            //         console.log(user)        
-            //     }else{
-            //         alert("error")
-            //     }
              }           
             
      
