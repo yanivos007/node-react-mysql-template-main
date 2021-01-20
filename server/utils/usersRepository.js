@@ -1,6 +1,6 @@
 // const router = require('../routers/vactionsRouter');
 const dbService = require('./dbService');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 
 class usersRepository {
@@ -10,7 +10,13 @@ this.nextId = 1;
 
 } 
  async getAll() {
-    this.users =  await dbService.executeQuery('SELECT * FROM users');
+    const user =  await dbService.executeQuery('SELECT * FROM users');
+    const newUser = this.setState({
+      user: newUser
+    });
+    console.log(newUser)
+    console.log(user)
+    return user;
   }
 
 async findByUserName(userName){
@@ -20,18 +26,17 @@ async findByUserName(userName){
 };
 
    async addNewUser(newUserData) {
-     const {firstName, lastName, userName, password} = newUserData
-    const newUser =  await dbService.executeQuery('INSERT INTO  users (firstName, lastName, userName, password) VALUES(?,?,?,?)', 
-    [firstName, lastName, userName, password]) ;
-    if(this.findByUserName(userName)){
+    const {firstName, lastName, userName, password} = newUserData
+    const user = await this.findByUserName(userName)
+    if(!user){
       throw ({error:["userName is already in used!"]});
     }else{
       const hash = await bcrypt.hash(password, 10);
       const createdAt = Date.now();
-      const brandNewUser = { ...newUser, password: hash, createdAt };
-      res.send(brandNewUser)
+      const newUser = {firstName,lastName, userName, password: hash };
+      const results =  await dbService.executeQuery('INSERT INTO  users set ?' , newUser) ;
+      return {id: results.insertId, ...newUser, createdAt};
     }
-    return newUserData;
    }
 
   // async save(data) {

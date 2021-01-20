@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const dbService = require('./dbService');
 
 
@@ -10,18 +11,24 @@ class vacationsRepository {
 async getAll() {
     return await dbService.executeQuery('SELECT * FROM vacations');
   }
+//POST /api/vacations/post
+  // async addVacation(vacation) {
+  //   const newVacationData =  {description, destination, price, dates, followers} 
+  //     const results = await dbService.executeQuery(
+  //     'INSERT INTO vacations SET ? ', newVacationData)
+  //   return vacation = { id: results.insertId, results, createdAt}
 
+  // }
   async addVacation(newVacationData) {
-    try{
-      const {description, destination, price, dates, followers} = newVacationData
-      const vacation = await dbService.executeQuery('INSERT INTO vacations (description, destination, price, dates, followers) VALUES(?,?,?,?,?)',
-    [description, destination, price, dates, followers]);
-    const createdAt = Date.now();
-
-    const newVacation ={...vacation, id: vacation.id, createdAt}
-    res.send(newVacation) ;
-    }catch (error){
-      console.log(error)
+    const {description, destination, price, dates, followers} = newVacationData
+    if(!newVacationData){
+      throw ({error:["vacation is already exist!"]});
+    }else{
+      const createdAt = Date.now();
+      const newVacation = { description, destination, price, dates, followers};
+      const results =  await dbService.executeQuery('INSERT INTO  users set ?' , 
+      newVacation) ;
+      return {id: results.insertId, ...newVacation, createdAt};
     }
   }
   async save(data) {

@@ -3,16 +3,16 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const apiRouter = require('./utils/apiRouter')
-const app = express();
-const port = 8080;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
+const app = express();
+const port = 8080;
 
 
 app.use(cors());
 app.use(morgan('tiny'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.json())
 app.use(cookieParser());
 

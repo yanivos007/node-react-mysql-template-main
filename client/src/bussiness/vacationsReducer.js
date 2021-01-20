@@ -7,11 +7,10 @@ const initialState = {
  const vacationsReducer = (state = initialState, action ) => {
     switch (action.type) {
         case ACTIONS.VACATION_ADDED:
-            return{...state, vacationsList: action.vacations}
+            return{...state, vacationsList: [...state, action.test] }
         case ACTIONS.FETCH_VACATIONS:
-            return{...state}
-        // case ACTIONS.VACATION_DELETED:
-        //     return {...state  }
+            return{...state, vacationsList: action.vacations}
+      
             default:
                 return state;
     }

@@ -6,12 +6,53 @@
   max-width: 700px;
   background-color:wheat ;
 }
-nav-links{
-  display: flex;
-  justify-content: center;
-  margin: auto;
+.navLinks{
+  display: flex; 
+  grid-column-gap: 50px;
+  border: 1px solid black;
+  justify-content:space-around;
+  padding: auto;
+list-style: none;
 
 }
 .loginContainer{
 border: 3px solid blanchedalmond;
+}
+/* .mainManu{
+display: flex;
+justify-content: center;
+margin: auto;
+border: 1px solid black
+} */
+.navBar{
+  display: flex;
+justify-content: center;
+
+}
+.loginPage{
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border: 1px solid black
+  
+}
+.vacationCard{
+  justify-content: center;
+  margin: auto;
+  border: 1px solid black
+  
+}
+.admiNav{
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+}
+.adminLink{
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+}
+.adminNavContainer{
+  justify-content: center;
+  border: 3px solid blue
 }

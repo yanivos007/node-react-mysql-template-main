@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 
-
-
 class NavBar extends Component {
     render() {
         return (
-                <div className="app">
+                <div className="navBar">
                         <nav>
-                            <ul className="nav-links">
+                            <ul className="navLinks">
                                 <Link to="/">
-                                    <li> home </li>
+                                    <li> homePage </li>
                                 </Link>
                                 <Link to="/admin">
                                     <li> admin's page</li>

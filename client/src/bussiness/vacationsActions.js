@@ -6,20 +6,20 @@ export const VACATION_DELETED = "/vacations/delete";
 export const FETCH_VACATIONS ="/vacations"
 
 export const addVacation = (description, destination, price, dates, followers ) => async dispatch => {
-    const result = await api.post('vacations/post', { description, destination, price, dates, followers })
-        if(!result){
+    const response = await api.post('/vacations', 
+    { description, destination, price, dates, followers })
+        if(!response){
             console.log('something went wrong')
         }else{
-            dispatch({type:VACATION_ADDED, vacation: result.data });
+            dispatch({type:VACATION_ADDED, vacations: response.data });
         }
     };
 export const fetchAll = () => async dispatch => {
-    const result = await api.get('api/vacations')
-        if(!result){
+    const response = await api.get('/vacations')
+        if(!response){
             console.log('something went wrong')
         }else{
-            dispatch({type:FETCH_VACATIONS, vacation: result.data });
-            console.log(result)
+            dispatch({type: FETCH_VACATIONS, vacations: response.data });
         }
     };
 

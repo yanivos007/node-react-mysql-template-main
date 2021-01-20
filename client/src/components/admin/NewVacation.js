@@ -3,11 +3,9 @@ import { connect } from "react-redux";
 import Vacation from './Vacation'
 import { addVacation, fetchAll } from '../../bussiness/vacationsActions'
 
-
-
 class Admin extends Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.description = React.createRef();
         this.destination = React.createRef();
         this.price = React.createRef();
@@ -21,10 +19,11 @@ class Admin extends Component {
 
 
     render() {
-        const allVacations = this.props.vacations;
+        const {vacations} = this.props;
         return (
             <div>
                 <h1>Admin's Page</h1>
+                
                 <h3>add new vacation</h3>
                 <form onSubmit={(event) => this.onSubmitHandler(event)}>
                     <label>description</label>
@@ -45,14 +44,20 @@ class Admin extends Component {
                 </form>
                 <div>
 
-                    {allVacations.map(v =>
-                        <div>
-                            <Vacation key={v.id} item={v} />
+                {vacations.map(v =>
+                        <div key={v.id}>
+                            <Vacation v={vacations} />
                         </div>)}
                 </div>
             </div>
         )
     }
+    // <div>
+                    
+    // {vacations.map(function(item,i){
+    //         return <Vacation vacation={item} key={i} />       
+    //         })}
+    // </div>
     async onSubmitHandler(event) {
         event.preventDefault();
         const description = this.description.current.value;
@@ -68,14 +73,15 @@ class Admin extends Component {
 
 const mapsStateToProps = state => {
     return {
-        vacations : state.vacationsList
+        vacations : state.vacations.vacationsList
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         onFetchVacations: () => dispatch(fetchAll()) ,
+
         onAddVacation: (description,destination, price, dates, followers) =>
-         dispatch(addVacation(description,destination, price, dates, followers))
+         dispatch(addVacation(description, destination, price, dates, followers))
 
     }
 }

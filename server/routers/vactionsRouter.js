@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { json } = require('body-parser');
 // const dbService = require('../utils/dbService');
 const REPOSITORY = require('../utils/vacationsRepository');
 
@@ -6,7 +7,7 @@ const REPOSITORY = require('../utils/vacationsRepository');
 router.get('/', async (req, res) => {
     try {
         const vacations = await REPOSITORY.getAll();
-        res.json(vacations)
+        res.send(vacations)
     } catch (err) {
         console.log(err)
     }
@@ -15,9 +16,15 @@ router.get('/', async (req, res) => {
 router.post('/post', async (req, res) => {
     try {
    const newVacationData = req.body
-        const newVacation = await REPOSITORY.addVacation(newVacationData)
-        res.send(newVacation) ;
-    } catch (err) {
+    const newVacation = await REPOSITORY.addVacation(newVacationData)
+    console.log(newVacation)    
+    if(!newVacation){
+            res.status(500).send({error:['something went wrong']})
+        }else{
+            console.log('no vacations')
+            res.status(200).send(newVacation)
+        }
+} catch (err) {
         console.log(err)
     }
 })

@@ -20,7 +20,7 @@ export const register = (firstName, lastName, userName, password) => async dispa
         if(!result){
             console.log(result.errors);
         }else{
-            dispatch({type: REGISTER, user: result} )
+            dispatch({type: REGISTER, user: result.data} )
             console.log('user added')
             }
     }
