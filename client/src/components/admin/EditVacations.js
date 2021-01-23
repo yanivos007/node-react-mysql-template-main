@@ -4,7 +4,6 @@ import React, { Component } from 'react'
     render() {
         return (
             <div>
-              edit vacations  
             </div>
         )
     }

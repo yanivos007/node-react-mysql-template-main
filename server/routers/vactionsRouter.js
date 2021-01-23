@@ -29,9 +29,5 @@ router.post('/post', async (req, res) => {
     }
 })
 
-// router.delete('/delete', async (req,res)=>{
-//             const { destination, description, cost, dates, followers } = req.body
-
-// })
 
 module.exports = router;

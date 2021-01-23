@@ -26,22 +26,7 @@ this.userName.current.focus();
         const newUser ={firstName,lastName,userName, password};
         this.props.onRegister(newUser) ;
      }       
-    //     const insertUser = {
-    //         method: "POST" , 
-    //         headers: {
-    //             "content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(newUser)
-    //     };
-    //     if(insertUser){
-    //         fetch('/api/users/register', insertUser)
-    //         .then(res => res.json())
-    //         .then(res => this.state({res}))
-    //     }else{
-    //         alert("error")
-    //     }
-    //  }
-
+   
 
     render() {
         return (

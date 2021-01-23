@@ -1,24 +1,12 @@
-const { json } = require('body-parser');
 const dbService = require('./dbService');
 
 
-// const vacation = await dbService.executeQuery('INSERT INTO `project1`.`vacations`(`description`,`destination`,`price`,`dates`,`followers`)',
-// [description, destination, price, dates, followers]);
 class vacationsRepository {
-    constructor(){
-    this.vacations =[]
-    }  
+ 
 async getAll() {
     return await dbService.executeQuery('SELECT * FROM vacations');
   }
-//POST /api/vacations/post
-  // async addVacation(vacation) {
-  //   const newVacationData =  {description, destination, price, dates, followers} 
-  //     const results = await dbService.executeQuery(
-  //     'INSERT INTO vacations SET ? ', newVacationData)
-  //   return vacation = { id: results.insertId, results, createdAt}
 
-  // }
   async addVacation(newVacationData) {
     console.log(newVacationData);
     const {description, destination, price, dates, followers} = newVacationData

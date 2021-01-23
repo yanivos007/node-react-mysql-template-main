@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import NewVacation from './NewVacation'
-import Vacation from './Vacation'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import NewVacation from './NewVacation';
+import Vacation from './Vacation';
+import EditVacations from './EditVacations';
+import EditUsers from './EditUsers';
 
 class AdminPage extends Component {
     constructor() {
@@ -16,35 +18,33 @@ class AdminPage extends Component {
 
     onShowNewVacationHandler() {
         this.setState({ showVacationComponent: true })
-        console.log(this.state.showVacationComponent)
     }
     onEditVacationHandler() {
         this.setState({ editVacationComponent: true })
     }
-    editUsersComponent() {
+    onEditUsersComponent() {
         this.setState({ editusersComponent: true })
     }
     render() {
         const { vacations } = this.props;
         return (
-            <div className="adminNavContainer">
+            <div>
                 <h1> admin's page</h1>
                 <ul className="admiNav">
                     <li className="adminLink"><button type="button" onClick={() => this.onShowNewVacationHandler()}> add new vacation</button></li>
                     <li className="adminLink"><button type="button" onClick={() => this.onEditVacationHandler()}> edit vacations</button></li>
-                    <li className="adminLink"> <button type="button" onClick={() => this.editUsersComponent()}> edit users</button></li>
+                    <li className="adminLink"> <button type="button" onClick={() => this.onEditUsersComponent()}> edit users</button></li>
                 </ul>
-                <div>
+                {/* <div> {this.showVacationComponent = true &&
+                        <div> <NewVacation /> </div> }</div> */}
+                <div> {this.editVacationComponent = true &&
+                        <div> <EditVacations /> </div> }</div>
+                <div> {this.editusersComponent = true &&
+                        <div> <EditUsers /> </div> }</div>
 
-                    {this.state.showVacationComponent = true
-                        &&
-                        <div> <NewVacation /> </div>
-                    }
-                </div>
-                <div>
-
+                <div className="container">
                     {this.props.vacations.map(v =>
-                        <div key={v.id}>
+                        <div key={v.id} >
                             <Vacation v={vacations} />
                         </div>)}
                 </div>

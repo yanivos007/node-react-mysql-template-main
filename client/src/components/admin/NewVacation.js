@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import Vacation from './Vacation'
 import { addVacation, fetchAll } from '../../bussiness/vacationsActions'
 
 class newVacation extends Component {
@@ -18,7 +17,6 @@ class newVacation extends Component {
     }
 
     render() {
-        const { vacations } = this.props;
         return (
             <div className="newVacationContainer">
 
@@ -41,22 +39,12 @@ class newVacation extends Component {
                     <input type="submit" />
                 </form>
                 <div>
-                    <div>
-                        {this.props.vacations.map(v =>
-                            <div key={v.id}>
-                                <Vacation v={vacations} />
-                            </div>)}
-                    </div>
+                   
                 </div>
             </div>
         )
     }
-    // <div>
-
-    // {vacations.map(function(item,i){
-    //         return <Vacation vacation={item} key={i} />       
-    //         })}
-    // </div>
+   
     async onSubmitHandler(event) {
         event.preventDefault();
         const description = this.description.current.value;
@@ -70,7 +58,7 @@ class newVacation extends Component {
     }
 }
 
-const mapsStateToProps = state => {
+const mapStateToProps = state => {
     return {
         vacations: state.vacations.vacationsList
     }
@@ -85,4 +73,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapsStateToProps, mapDispatchToProps)(newVacation);
+export default connect(mapStateToProps, mapDispatchToProps)(newVacation);
