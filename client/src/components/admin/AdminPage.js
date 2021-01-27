@@ -4,6 +4,9 @@ import NewVacation from './NewVacation';
 import Vacation from './Vacation';
 import EditVacations from './EditVacations';
 import EditUsers from './EditUsers';
+import {  fetchAll } from '../../bussiness/vacationsActions'
+
+
 
 class AdminPage extends Component {
     constructor() {
@@ -14,49 +17,61 @@ class AdminPage extends Component {
             editusersComponent: false
         }
     }
-
+    
 
     onShowNewVacationHandler() {
-        this.setState({ showVacationComponent: true })
+        this.setState({ showVacationComponent: true,
+            editVacationComponent: false,
+            editusersComponent:false })
     }
     onEditVacationHandler() {
-        this.setState({ editVacationComponent: true })
+        this.setState({ editVacationComponent: true,
+            showVacationComponent: false,
+            editusersComponent:false })
     }
     onEditUsersComponent() {
-        this.setState({ editusersComponent: true })
+        this.setState({ editusersComponent: true,
+            editVacationComponent: false,
+            showVacationComponent:false })
     }
     render() {
-        const { vacations } = this.props;
+        
         return (
             <div>
                 <h1> admin's page</h1>
                 <ul className="admiNav">
-                    <li className="adminLink"><button type="button" onClick={() => this.onShowNewVacationHandler()}> add new vacation</button></li>
-                    <li className="adminLink"><button type="button" onClick={() => this.onEditVacationHandler()}> edit vacations</button></li>
-                    <li className="adminLink"> <button type="button" onClick={() => this.onEditUsersComponent()}> edit users</button></li>
+                    <li><button type="button" onClick={() => this.onShowNewVacationHandler()}> add new vacation</button></li>
+                    <li><button type="button" onClick={() => this.onEditVacationHandler()}> edit vacations</button></li>
+                    <li> <button type="button" onClick={() => this.onEditUsersComponent()}> edit users</button></li>
                 </ul>
-                {/* <div> {this.showVacationComponent = true &&
-                        <div> <NewVacation /> </div> }</div> */}
-                <div> {this.editVacationComponent = true &&
-                        <div> <EditVacations /> </div> }</div>
-                <div> {this.editusersComponent = true &&
-                        <div> <EditUsers /> </div> }</div>
 
-                <div className="container">
+
+                <Vacation />
+                {/* <div className="container">
                     {this.props.vacations.map(v =>
                         <div key={v.id} >
-                            <Vacation v={vacations} />
+                            <Vacation v={v} />
                         </div>)}
-                </div>
+                </div> */}
 
+                {this.state.showVacationComponent && <NewVacation />}
+               {this.state.editVacationComponent && <EditVacations />}
+                {this.state.editusersComponent && <EditUsers /> }
+
+               
             </div>
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        vacations: state.vacations.vacationsList
+        vacations: state.vacations.vacationsList,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchVacations: () => dispatch(fetchAll()),
     }
 }
 
-export default connect(mapStateToProps, null)(AdminPage)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPage)

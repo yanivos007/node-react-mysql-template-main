@@ -8,6 +8,8 @@ CREATE TABLE `project1`.`users` (
   `lastName` VARCHAR(45) NULL,
   `userName` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
+  `role` VARCHAR(45) NULL ;
+
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `userName_UNIQUE` (`userName` ASC) VISIBLE);
@@ -20,3 +22,11 @@ CREATE TABLE `project1`.`vacations` (
   `dates` DATE NOT NULL,
   `followers` INT NOT NULL,
   PRIMARY KEY (`id`));
+
+ALTER TABLE `project1`.`vacations` 
+ADD COLUMN `toDate` DATE NOT NULL AFTER `date`,
+CHANGE COLUMN `dates` `date` DATE NOT NULL ;
+
+-- admin :
+-- userName: 123
+-- password:123

@@ -2,16 +2,15 @@ import * as api from './ajaxRequest'
 
 
 export const ADD_USER = "users/login";
+export const USER_LOGGED_OUT ="users/logout"
 export const REGISTER = "users/register";
 export const ADMIN_CONNECTED = "users/admin";
 export const FETCH_ALL_USERS = "users";
 export const DELETE_USER = 'users/delete'
-// import axios from 'axios'
 
 export const login = (userName, password) => async dispatch => {
-    const result = await api.post('users/login', { userName, password })
-    if (result) {
-        console.log(result)
+    const result = await api.post('/users/login', { userName, password })
+    if (!result) {
         console.log('something went wrong')
     } else {
         console.log(result)
@@ -20,32 +19,41 @@ export const login = (userName, password) => async dispatch => {
 };
 
 export const register = (firstName, lastName, userName, password) => async dispatch => {
-    const results = await api.post('users/register', { firstName, lastName, userName, password });
+    const results = await api.post('/users/register', 
+    { firstName, lastName, userName, password });
     console.log(results)
     if (!results) {
-        console.log(results.errors);
+        console.log({message:'something went wrong'});
     } else {
-        dispatch({ type: REGISTER, user: results.data })
-        console.log('user added')
+        dispatch({ type: REGISTER, message: 'user added' })
     }
 }
 export const fetchAllUsers = () => async dispatch => {
     const response = await api.get('/users')
     if (!response) {
-        console.log(response)
-        console.log(response.data)
         console.log('something went wrong')
     } else {
         dispatch({ type: FETCH_ALL_USERS, users: response.data });
     }
 };
+export const logout = () => async dispatch  => {
+    const result = await api.post("/users/logout", {});
+	if (result.errors) {
+		console.log(result.errors);
+    }else{
+        dispatch({type: USER_LOGGED_OUT});
 
-export const deleteUser = (userName) => async dispatch => {
-    const response = await ('/users')
+    }
+}
+
+export const deleteUser = (id) => async dispatch => {
+    const response = await api.get('/users')
+    console.log(response)
     if (!response) {
         return ({ message: 'something went wrong' })
     } else {
         dispatch({ type: DELETE_USER, users: response.data })
+        console.log('user deleted')
     }
 }
 

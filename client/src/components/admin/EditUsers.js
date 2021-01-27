@@ -13,11 +13,10 @@ import { fetchAllUsers, deleteUser } from '../../bussiness/usersActions'
             <div >
                 <h2>edit users</h2>
                 {this.props.users.map(u=>
-                    <div className='editUserBox'>
+                    <div key={u.id} className='editUserBox'>
                         <form  >
                             <div className='editUserUnit' key={u.id} u={users}>
                             <div> ----userName: {u.userName} ----</div>  
-                               <div> password: {u.password}</div>
                                 <button onClick={(e)=>this.onDeleteUser(e)}>delete user</button>
                             </div>
                         </form>
@@ -39,7 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch=>{
     return{
         showAllUsers: () => dispatch(fetchAllUsers()),
-        deletUser: ()=> dispatch(deleteUser())
+        deleteUser: ()=> dispatch(deleteUser())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditUsers)

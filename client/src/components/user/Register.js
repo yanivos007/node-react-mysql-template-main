@@ -23,8 +23,8 @@ this.userName.current.focus();
         const lastName = this.lastName.current.value;
         const userName = this.userName.current.value;
         const password = this.password.current.value;
-        const newUser ={firstName,lastName,userName, password};
-        this.props.onRegister(newUser) ;
+        // const newUser ={firstName,lastName,userName, password};
+        this.props.onRegister(firstName , lastName , userName, password) ;
      }       
    
 
@@ -32,9 +32,10 @@ this.userName.current.focus();
         return (
             <div className="loginPage">
                 <h1>register here </h1>
+                <br />
                 <form onSubmit={(event)=>this.onSubmitHandler(event)}>
-                <div classsName="loginContainer" >
-                    <label name="firstName"/> 
+                <div className="loginContainer" >
+                    <label value="firstName"/> 
                 <input  type="text" placeholder="first name" ref={this.firstName}/>
                 <br />
                     <label name="lastName"/> 
@@ -46,7 +47,7 @@ this.userName.current.focus();
                     <label name="password"/> 
                 <input  type="password" placeholder="password" ref={this.password}/>
                 <br />
-            <input type="submit"/>
+                <button type="submit">send</button>
             <br />
             <a className="btn btn-outline-primary" href="/login" role="button">already have a user? press here!</a>
                 </div>
@@ -57,7 +58,8 @@ this.userName.current.focus();
 }
 const mapDispatchToProps = dispatch => {
 return{
-    onRegister: (firstName , lastName , userName, password) => dispatch = (register(firstName , lastName ,userName, password))
+    onRegister: (firstName , lastName , userName, password) => 
+    dispatch(register(firstName , lastName ,userName, password))
 }
 }
 

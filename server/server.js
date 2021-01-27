@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const apiRouter = require('./utils/apiRouter')
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
 const app = express();
 const port = 8080;
 
@@ -15,6 +14,9 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(express.json())
 app.use(cookieParser());
+app.use(express.static(require('path').join(__dirname, 'images')))
+
+
 
 app.use(session({
 	secret: "vnpsdfjsdasdmfog",

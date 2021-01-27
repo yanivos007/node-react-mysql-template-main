@@ -4,7 +4,7 @@ import Login from './user/Login'
  class HomePage extends Component {
     render() {
         return (
-            <div>
+            <div className="homePage">
                 <Login />
             </div>
         )
